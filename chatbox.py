@@ -11,8 +11,9 @@ import logging
 def main():
     # Load your token and create an Updater for your Bot
     config = configparser.ConfigParser()
-    config.read('config.ini')
-    updater = Updater(token=(config['TELEGRAM']['ACCESS TOKEN']), use_context=True)
+    config.read('/Users/macbookpro/Desktop/comp7940-lab3/config.ini', encoding='utf-8')
+    print(config['TELEGRAM'])
+    updater = Updater(token=(config['TELEGRAM']['ACCESS_TOKEN']), use_context=True)
     dispatcher =updater.dispatcher
     # You can set this logging module,
     # so you will know when and why things do not work as expected
