@@ -1,10 +1,10 @@
-# fly.toml app configuration file generated for comp7940-lab3-24466778- on 2025-03-13T18:12:30+08:00
+# fly.toml app configuration file generated for comp7940-lab5-24466778 on 2025-03-14T11:24:38+08:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'comp7940-lab3-24466778-'
-primary_region = 'nrt'
+app = 'comp7940-lab5-24466778'
+primary_region = 'hkg'
 
 [build]
   builder = 'paketobuildpacks/builder:base'
@@ -15,6 +15,11 @@ primary_region = 'nrt'
 [[services]]
   protocol = 'tcp'
   internal_port = 8000
+  
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = 'connections'
 
   [[services.ports]]
     port = 80
@@ -24,10 +29,7 @@ primary_region = 'nrt'
     port = 443
     handlers = ['tls', 'http']
 
-  [services.concurrency]
-    type = 'connections'
-    hard_limit = 25
-    soft_limit = 20
+  
 
 [[vm]]
   size = 'shared-cpu-1x'
