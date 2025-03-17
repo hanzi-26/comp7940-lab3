@@ -6,6 +6,7 @@ import logging
 import redis
 global redis1
 from ChatGPT_HKBU import HKBU_ChatGPT
+
 def equiped_chatgpt(update, context):
     global chatgpt
     reply_message = chatgpt.submit(update.message.text)
@@ -16,7 +17,7 @@ def equiped_chatgpt(update, context):
 def main():
     # Load your token and create an Updater for your Bot
     config = configparser.ConfigParser()
-    config.read('/Users/macbookpro/Desktop/comp7940-lab3/config.ini')
+    config.read('config.ini')
     updater = Updater(token=(config['TELEGRAM']['ACCESS_TOKEN']), use_context=True)
     dispatcher = updater.dispatcher
     global redis1
@@ -66,7 +67,8 @@ def add(update: Update, context: CallbackContext) -> None:
         msg = context.args[0] # /add keyword <-- this should store the keyword
         redis1.incr(msg)
 
-        update.message.reply_text('You have said ' + msg + ' for ' + redis1.get(msg).encode('UTF-8').decode('UTF-8') + ' times.')
+        # update.message.reply_text('You have said ' + msg + ' for ' + redis1.get(msg).encode('UTF-8').decode('UTF-8') + ' times.')
+        update.message.reply_text('You have said ' + msg + ' for ' + redis1.get(msg).decode('UTF-8') + ' times.')
     except (IndexError, ValueError):
         update.message.reply_text('Usage: /add <keyword>')
 
