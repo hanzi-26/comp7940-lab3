@@ -1,0 +1,17 @@
+version: '3'
+services:
+  chatbot:
+    image: barry_amd64
+    environment:
+      - ACCESS_TOKEN_TG=7793512749:AAGaOvF1iT2J6GfB_8oFArW8IjsgyGapyAs
+      - ACCESS_TOKEN_CHATGPT=0f6ba6fa-d977-46a8-8c6e-38156ebfc422
+      - PASSWORD_REDIS=comp7940passwordlab8
+      - PORT_REDIS=6379
+      - HOST_REDIS=redis
+    depends_on:
+      - redis
+  redis:
+    image: redis
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    command: ["/usr/local/etc/redis/redis.conf"]
